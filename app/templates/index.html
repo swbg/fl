@@ -12,8 +12,6 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
@@ -28,16 +26,29 @@
   </head>
   <body onload="init()">
     <div id="map"></div>
-    <div class="fl-menu" id="search-item-menu">Search: <input id="search-item-bar" type="text"></div>
-    <div class="fl-menu" id="add-log-entry-menu">
-      <div id="add-log-entry-select-location">
-        Select location.
+    <div id="control-menu">
+      <div class="control-group" id="zoom-control">
+        <button class="control-button not-last-button" id="zoom-in-button">+</button>
+        <button class="control-button not-first-button" id="zoom-out-button">-</button>
       </div>
-      <div id="add-log-entry-select-item">
+      <div class="control-group" id="locate-control">
+        <button class="control-button" id="locate-button">l</button>
+      </div>
+      <div class="control-group" id="item-control">
+        <button class="control-button not-last-button" id="search-item-button">s</button>
+        <button class="control-button not-first-button" id="add-item-button">a</button>
+      </div>
+    </div>
+    <div class="fl-menu" id="search-item-menu"><input id="search-item-bar" type="text" placeholder="Produkt suchen..."></div>
+    <div class="fl-menu" id="add-log-entry-menu">
+      <div class="fl-sub-menu" id="add-log-entry-select-location">
+        Bitte Fundort auswählen.
+      </div>
+      <div class="fl-sub-menu" id="add-log-entry-select-item">
         Add: <input id="add-log-entry-bar" type="text">
         <button id="add-log-entry-open-scanner">Use scanner</button>
       </div>
-      <div id="add-log-entry-confirmation">
+      <div class="fl-sub-menu" id="add-log-entry-confirmation">
         Success!
         <button id="add-additional-log-entry">Add one more</button>
         <button id="add-log-entry-done">Done</button>

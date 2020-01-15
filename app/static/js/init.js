@@ -9,13 +9,16 @@ fl = {
 
 function initSearchItemMenu() {
   // add toggle search item menu button
-  button = L.easyButton(
-    "<span class='menu-icon'>&telrec;</span>",
-    function(btn, map){
+  $("#search-item-button").click(
+    function() {
       endAddLogEntryProcess();
-      $("#search-item-menu").toggle();
-    },
-    "Search"
+      if ($("#search-item-menu").is(":visible")) {
+        hideMenu("#search-item-menu");
+      }
+      else {
+        showMenu("#search-item-menu");
+      }
+    }
   );
 
   // set up search item bar
@@ -29,31 +32,16 @@ function initSearchItemMenu() {
       return false;
     }
   });
-
-  return button;
 }
 
 
 function initLocateButton() {
   // add locate button
-  button = L.easyButton(
-    "<span class='menu-icon'>&target;</span>",
-    function(btn, map) {
-      map.locate({setView: false}).once(
-        "locationfound locationerror",
-        function(e) {
-          if (e.type == "locationfound") {
-            map.setView(e.latlng, 13);
-          }
-          else {
-            console.log("Locate failed.");
-          }
-        }
-      );
-    },
-    "Locate"
+  $("#locate-button").click(
+    function() {
+      fl.map.locate({setView: true});
+    }
   );
-  return button;
 }
 
 
@@ -62,12 +50,10 @@ function initAddLogEntryFunctionality() {
   hideAddLogEntryMenu();
 
   // add add log entry button
-  button = L.easyButton(
-    "<span class='menu-icon'>&starf;</span>",
-    function(btn, map){
+  $("#add-item-button").click(
+    function() {
       startAddLogEntryProcess();
-    },
-    "Add"
+    }
   );
 
   // set up add log entry bar
@@ -87,7 +73,7 @@ function initAddLogEntryFunctionality() {
     function() {
       alert("Not implemented.");
     }
-  )
+  );
 
   // set up add additional item button
   $("#add-additional-log-entry").click(
@@ -95,21 +81,33 @@ function initAddLogEntryFunctionality() {
       $("#add-log-entry-confirmation").hide();
       $("#add-log-entry-select-item").show();
     }
-  )
+  );
 
   // set up done button
   $("#add-log-entry-done").click(
     function() {
       endAddLogEntryProcess();
     }
-  )
+  );
+}
 
-  return button;
+
+function initZoomButtons() {
+  $("#zoom-in-button").click(
+    function() {
+      fl.map.zoomIn();
+    }
+  );
+  $("#zoom-out-button").click(
+    function() {
+      fl.map.zoomOut();
+    }
+  );
 }
 
 
 function init() {
-  var map = L.map('map').setView([48.155, 11.5418], 13);
+  var map = L.map('map', {zoomControl: false}).setView([48.155, 11.5418], 13);
   var markerGroup = L.markerClusterGroup();
 
   L.tileLayer(
@@ -128,9 +126,21 @@ function init() {
   fl.map = map
   fl.markerGroup = markerGroup;
 
-  initLocateButton().addTo(fl.map);
-  L.easyBar([
-    initSearchItemMenu(),
-    initAddLogEntryFunctionality()
-  ]).addTo(fl.map);
+  initZoomButtons();
+  initLocateButton();
+  initSearchItemMenu(),
+  initAddLogEntryFunctionality()
+
+  fl.map.on(
+    "locationfound",
+    function (e) {
+      console.log("Locate succeeded.");
+    }
+  );
+  fl.map.on(
+    "locationerror",
+    function (e) {
+      console.log("Locate failed.");
+    }
+  );
 }

@@ -11,14 +11,55 @@ body {
 	height: 100%;
 	z-index: 0;
 }
+#control-menu {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+
+}
+.control-group {
+	border: 2px solid rgba(0,0,0,0.2);
+	border-radius: 4px;
+	background-clip: padding-box;
+	margin-bottom: 10px;
+	width: 30px;
+	background-color: #fff;
+}
+.control-button {
+	width: 30px;
+	height: 30px;
+	border: 0px;
+	background-color: #fff;
+	border-radius: 4px;
+}
+.control-button::-moz-focus-inner {
+	border: 0px;
+}
+.control-button:focus {
+	outline: none;
+}
+.control-button:hover {
+	background-color: #fafafa;
+}
+.not-last-button {
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.not-first-button {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
 .fl-menu {
   position: absolute;
 
-  padding: 10px;
+  padding: 0px;
 	z-index: 5;
 
 	left: 54px;
 	top: 10px;
+
+	max-width: 500px;
 
 	background-position: 50% 50%;
 	background-color: #fff;
@@ -28,7 +69,18 @@ body {
 	border: 2px solid rgba(0,0,0,0.2);
 	border-radius: 4px;
 	background-clip: padding-box;
+
+	overflow: hidden;
 }
 .menu-icon {
 	font-size: 1.5em;
+}
+.fl-sub-menu {
+	padding: 8px;
+}
+#search-item-bar {
+	border: 0px;
+	height: 30px;
+	padding: 0px;
+	padding-left: 8px;
 }

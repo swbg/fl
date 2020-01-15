@@ -22,11 +22,39 @@ function getAddLogEntryPopup(location) {
 }
 
 
+function hideMenu(element_id) {
+  $(element_id).animate(
+    {
+      "width": "0px",
+    },
+    {
+      duration: 1000,
+      complete: function() {
+        $(element_id).hide();
+      }
+    }
+  );
+}
+
+
+function showMenu(element_id) {
+  $(element_id).animate(
+    {
+      "width": "500px"
+    },
+    {
+      duration: 1000,
+      start: function() {
+        $(element_id).show();
+      }
+    }
+  );
+}
+
+
 function startAddLogEntryProcess() {
-  $("#search-item-menu").hide();
+  hideMenu("#search-item-menu");
   hideAddLogEntryMenu();
-  $("#add-log-entry-menu").show();
-  $("#add-log-entry-select-location").show();
   fl.map.locate({setView: false}).once(
     "locationfound locationerror",
     function(e) {
@@ -36,12 +64,16 @@ function startAddLogEntryProcess() {
         if (offset.x <= 3 && offset.y <= 3) {
           // do not pan the map if offset is smaller than 3 pixels
           // enables using the add new item button several times in a row
+          showMenu("#add-log-entry-select-location");
+          showMenu("#add-log-entry-menu");
           drawLocationsWithinBounds(fl.map.getBounds(), getAddLogEntryPopup);
         }
         else {
           fl.map.panTo(e.latlng).once(
             "moveend",
             function(e) {
+              showMenu("#add-log-entry-select-location");
+              showMenu("#add-log-entry-menu");
               drawLocationsWithinBounds(fl.map.getBounds(), getAddLogEntryPopup);
             }
           );
