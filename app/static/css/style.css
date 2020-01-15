@@ -31,12 +31,9 @@ body {
 	border: 0px;
 	background-color: #fff;
 	border-radius: 4px;
-}
-.control-button::-moz-focus-inner {
-	border: 0px;
-}
-.control-button:focus {
-	outline: none;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
 }
 .control-button:hover {
 	background-color: #fafafa;
