@@ -81,6 +81,9 @@ function startAddLogEntryProcess() {
       }
       else {
         console.log("Locate failed.");
+        showMenu("#add-log-entry-select-location");
+        showMenu("#add-log-entry-menu");
+        drawLocationsWithinBounds(fl.map.getBounds(), getAddLogEntryPopup);
       }
     }
   );

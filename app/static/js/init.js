@@ -141,6 +141,7 @@ function init() {
     "locationerror",
     function (e) {
       console.log("Locate failed.");
+      console.log(e);
     }
   );
 }
